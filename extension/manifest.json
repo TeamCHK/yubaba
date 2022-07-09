@@ -7,7 +7,7 @@
         "16": "icons/temp_icon_16.png",
         "32": "icons/temp_icon_32.png",
         "48": "icons/temp_icon_48.png",
-        "128": "icon_128.png"
+        "128": "icons/temp_icon_128.png"
     },
     "background": {
         "service_worker": "background.ts"
