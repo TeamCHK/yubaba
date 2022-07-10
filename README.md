@@ -54,3 +54,10 @@ Clone this repository and run the following command from the root directory
 | Jun Hur       | junhurcmu@gmail.com  | [link](https://github.com/junhur)
 | Hyukjae Kwark | hkwark.ai@gmail.com  | [link](https://github.com/chorongi)
 
+## Resources
+
+- [Chrome Extension](https://developer.chrome.com/docs/extensions/)
+- [Webpack](https://webpack.js.org/)
+- [Babel](https://babeljs.io/)
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
