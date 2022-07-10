@@ -39,7 +39,7 @@ Clone this repository and run the following command from the root directory
 - For UI work
   - Copy Chrome extension ID
 
-      <img src="https://user-images.githubusercontent.com/17207771/178127434-e1601546-fb6c-4d88-8ec9-462c0abf76e3.png" width=30% height=30% > 
+    <img src="https://user-images.githubusercontent.com/17207771/178127434-e1601546-fb6c-4d88-8ec9-462c0abf76e3.png" width=30% height=30% /> 
     
 
   - Navigate to `chrome-extension://{EXTENSION_ID}/popup.html`
