@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot, Root } from "react-dom/client";
 
 
-export const Popup = () => {
+const Popup = () => {
     const [content, setContent] = useState('');
 
     useEffect(() => {
@@ -18,6 +18,8 @@ export const Popup = () => {
         </div>
     );
 };
+
+export default Popup;
 
 const rootElement: HTMLElement = document.getElementById("react-target")!;
 const root: Root = createRoot(rootElement);
