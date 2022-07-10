@@ -1,6 +1,6 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -20,7 +20,7 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
-                }
+                },
             }
         }],
     },
@@ -41,6 +41,6 @@ module.exports = {
             patterns: [
                 { from: "src/icons", to: "icons/" }
             ]
-        })
+        }),
     ],
 };
