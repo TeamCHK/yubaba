@@ -1,4 +1,4 @@
-# temp-repo-name
+# Chrome Extension
 TODO: {Simple overview goes here}
 
 ## Description
