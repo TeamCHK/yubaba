@@ -1,16 +1,20 @@
-try {
-    chrome.tabs.onUpdated.addListener((tabId, tab) => {
-        if (tab.url && tab.url.includes("youtube.com/watch") ) {
-            console.log(tab.url);
+const delay = (ms: number) : Promise<void> => {
+    return new Promise( resolve => setTimeout(resolve, ms));
+}
 
+try {
+    // TODO: types of tabId, tab to be determined
+    chrome.tabs.onUpdated.addListener(async (tabId, tab) => {
+        if (tab.url && tab.url.includes("cnn.com/") && tab.url.includes("index.html") ) {
+            console.log(tab.url);
+            await delay(3000);
             chrome.tabs.sendMessage(tabId, {
-                random: "Hello Jun",
                 url: tab.url,
             })
-            console.log("Message sent from background")
+            console.log("Message sent from background script")
         }
     })
   } catch (err) {
-    console.log(err);
+    const msg: String = (err instanceof Error) ? err.message : String(err);
+    console.log(msg);
   }
-
