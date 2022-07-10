@@ -19,8 +19,6 @@ const Popup = () => {
     );
 };
 
-export default Popup;
-
 const rootElement: HTMLElement = document.getElementById("react-target")!;
 const root: Root = createRoot(rootElement);
 
