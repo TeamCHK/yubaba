@@ -11,7 +11,7 @@ function Popup() {
     );
 }
 
-const rootElement = document.getElementById("react-target");
+const rootElement: HTMLElement = document.getElementById("react-target")!;
 const root = createRoot(rootElement);
 
 root.render(

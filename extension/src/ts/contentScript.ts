@@ -4,7 +4,7 @@
         messageReceived(url, random);
     });
 
-    const messageReceived = (url, random) => {
+    const messageReceived = (url: any, random: any) => {
         console.log("Message received from content script");
         console.log(random);
         console.log(url);
