@@ -4,7 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "content_scripts": [{
-        "matches": ["*://*.site.com/*"],
+        "matches": ["*://*/*"],
         "js": ["contentScript.js"]
     }],
     "icons": {
@@ -17,10 +17,11 @@
         "service_worker": "background.js"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "tabs"
     ],
     "host_permissions": [
-        "*://*.site.com/*"
+        "*://*/*"
     ],
     "action": {
         "default_icon": "icons/temp_icon_16.png",
