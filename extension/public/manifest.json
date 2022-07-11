@@ -3,6 +3,10 @@
     "description": "Temporary Extension description",
     "version": "1.0",
     "manifest_version": 3,
+    "content_scripts": [{
+        "matches": ["*://*/*"],
+        "js": ["contentScript.js"]
+    }],
     "icons": {
         "16": "icons/temp_icon_16.png",
         "32": "icons/temp_icon_32.png",
@@ -10,13 +14,14 @@
         "128": "icons/temp_icon_128.png"
     },
     "background": {
-        "service_worker": "background.ts"
+        "service_worker": "background.js"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "tabs"
     ],
     "host_permissions": [
-        "*://*.site.com/*"
+        "*://*/*"
     ],
     "action": {
         "default_icon": "icons/temp_icon_16.png",
