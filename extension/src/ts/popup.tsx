@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { createRoot, Root } from "react-dom/client";
+import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType } from "./types";
 
 
 const Popup = () => {
     const [content, setContent] = useState('');
 
     useEffect(() => {
-        chrome.tabs.query({currentWindow: true, active: true}, tabs => {
-            const currentTabId: number = tabs.length === 0 ? 0 : tabs[0].id!;
-            chrome.tabs.sendMessage(currentTabId, '', response => setContent(response));
+        const msg : PopupToBackgroundMsg = {
+            type: MsgType.PopUpInit
+        };
+        chrome.runtime.sendMessage(msg, function(response: BackgroundToPopupMsg) {
+            setContent(response.summary);
         });
     }, []);
 

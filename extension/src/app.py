@@ -16,7 +16,9 @@ async def root():
 
 @app.post("/summary")
 async def summarize(content: PageContent):
-    return PageContent(text=(content.text + ' ' + content.text))
+    response = PageContent(text=(content.text + ' ' + content.text))
+    print(response)
+    return response
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
