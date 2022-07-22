@@ -4,6 +4,7 @@ import { MsgType } from './types';
 
 var summarizedText: string | null;
 
+// TODO: Issue #14: Change url and endpoint after MLIS is ready
 const apiRoot: string = "http://localhost:8000";
 const summarizationEndpoint: string = "/summary";
 

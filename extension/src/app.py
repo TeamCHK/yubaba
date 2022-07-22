@@ -1,11 +1,15 @@
 from fastapi import FastAPI
-from pydantic.types import List
-import sqlalchemy as db
-import sqlalchemy.sql as sql
 import uvicorn
 from pydantic import BaseModel
 
 app = FastAPI()
+"""
+TODO: Issue #14 
+This API is a placeholder for local testing before ML Inference Service is ready
+
+To run: 
+    - $ python3 app.py
+"""
 
 class PageContent(BaseModel):
     text: str
