@@ -7,5 +7,11 @@ dist/
 # Editor files
 .vscode/
 
+# virtual environment
+model_dev/env/
+
+# model files
+model_dev/models/*
+
 
 .DS_STORE
