@@ -1,5 +1,6 @@
 certifi==2022.6.15
 charset-normalizer==2.1.0
+datasets==1.0.2
 filelock==3.7.1
 huggingface-hub==0.8.1
 idna==3.3
