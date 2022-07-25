@@ -1,13 +1,16 @@
-const getArticleTitle = () : String => {
-    const tag = document.querySelector('div.l-container h1.pg-headline') as HTMLHeadingElement;
-    return tag?.innerText ?? "";
-};
+import { ContentToBackgroundMsg, MsgType } from "./types";
 
-(() => {
-    chrome.runtime.onMessage.addListener((msg, sender, callback) => {
-        console.log('Message received from sender: ', sender.id, msg);
-        const articleTitle : String = getArticleTitle();
-        const displayText : String = articleTitle ? `The article title is ${articleTitle}` : "Not a CNN article page";
-        callback(displayText);
-    });
-})();
+const sendContent = (textToSend: string) => {
+    const msg: ContentToBackgroundMsg = {
+        type: MsgType.PageContent,
+        text: textToSend
+    };
+    chrome.runtime.sendMessage(msg);
+};
+//TODO: Decide and change whether we'll serve all types of websites vs only certain websites
+if (window.location.href.includes('cnn.com') && window.location.href.includes('index.html')) {
+    const body: HTMLElement = document.body;
+    const bodyText: Array<string> = body.outerText.split("\n").filter(text => text);
+
+    sendContent(bodyText[15]);
+}
