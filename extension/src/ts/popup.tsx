@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { createRoot, Root } from "react-dom/client";
-import AppBar from '@mui/material/AppBar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import CircularProgress from '@mui/material/CircularProgress';
-import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import {
+    AppBar,
+    Card,
+    CardContent,
+    CardHeader,
+    CircularProgress,
+    CssBaseline,
+    Link,
+    Toolbar,
+    Typography
+} from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import wretch from 'wretch';
 import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "./types";
