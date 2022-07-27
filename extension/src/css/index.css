@@ -1,0 +1,16 @@
+html {
+    height: 100vh
+}
+
+body {
+    width: 560px;
+    height: 400px;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 13px;
+}
+
+/* #react-target>div {
+    height: 100vh;
+} */
