@@ -7,7 +7,7 @@ const matchedFiles = glob.sync(`./src/ts/*(*.tsx|*.ts)`, {
     nodir: true
 });
 
-const modules = {}
+const entry = {}
 
 matchedFiles.forEach(file => {
     const TS_FOLDER = path.join(__dirname, 'src/ts');
@@ -22,17 +22,12 @@ matchedFiles.forEach(file => {
         fileKey = path.join(path.dirname(relativeFile), path.basename(relativeFile, '.ts'));
     } 
     if (fileKey != null) {
-        modules[fileKey] = file;
+        entry[fileKey] = file;
     }
 });
 
 module.exports = {
-    entry: {
-        ...modules,
-        index: './src/ts/index.tsx',
-        background: './src/ts/background.ts',
-        contentScript: './src/ts/contentScript.ts',
-    },
+    entry, 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].js',
