@@ -1,35 +1,137 @@
 import torch
 import transformers
-# Tokenizer
+
 from transformers import RobertaTokenizerFast
-# Encoder-Decoder Model
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 from transformers import EncoderDecoderModel
+
 from typing import Union, List
+import argparse
+import re
 
-# Input string can be a string, or a list of strings
-input_str = "Hello my name is Hyukjae Kwark. I am a CMU student who graduated in 2022 working on a chrome extension project for children using RoBERTa."
-input_strs = [input_str, input_str, input_str, input_str]
+PREFIX_STR = "summarize:"
 
-model_path = "./models/"
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
-def main(input_str: Union[str, List[str] ], model_path: str, device = "cpu"):
-
-    model = EncoderDecoderModel.from_pretrained(model_path)
-    tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
-    model.to(device)
-    batch_size = 256
-
-    inputs = tokenizer(input_str, padding="max_length", truncation=False, max_length=40, return_tensors="pt")
-    input_ids = inputs.input_ids.to(device)
-    attention_mask = inputs.attention_mask.to(device)
-    outputs = model.generate(input_ids, attention_mask=attention_mask)
-    # all special tokens including will be removed
-    output_str = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+def t5_inference(model_path:str, input_str:Union[str, List[str]], \
+        min_length:int, max_length:int, device: Union[torch.device, int]) -> str:
     
-    print(output_str)
+    model = T5ForConditionalGeneration.from_pretrained('t5-small')
+    if not re.match(model_path, ""):
+        model.load_state_dict(torch.load(model_path))
+    model.eval()
+    model.to(device)
+
+    t5_tokenizer = T5Tokenizer.from_pretrained('t5-small', model_max_length = max_length)
+    inputs = t5_tokenizer.encode(PREFIX_STR + input_str, return_tensors = "pt").to(device)
+    summary = model.generate(inputs,
+                            num_beams = 4,
+                            no_repeat_ngram_size = 4,
+                            length_penalty = 2.0,
+                            min_length = min_length,
+                            max_length = max_length,
+                            early_stopping = True,
+                            )
+
+    summary = t5_tokenizer.decode(summary[0], skip_special_tokens = True, clean_up_tokenization_spaces = True)
+    return summary
 
 
+def roberta_inference(model_path:str, input_str:Union[str, List[str]], \
+        min_length:int, max_length:int, device: Union[torch.device, int]) -> str:
+    
+    model = EncoderDecoderModel.from_pretrained("roberta-base")
+    if not re.match(model_path, ""):
+        model = model.load_state_dict(torch.load(model_path))
+    model.eval()
+    model.to(device)
+    
+    tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
+    inputs = tokenizer(input_str, return_tensors="pt").to(device)
+    attention_mask = inputs.attention_mask.to(device)
+    summary = model.generate(inputs, 
+                        num_beams = 4,
+                        no_repeat_ngram_size = 4,
+                        length_penalty = 2.0,
+                        attention_mask = attention_mask,
+                        min_length = min_length,
+                        max_length = max_length,
+                        early_stopping = True,
+                        )
+    summary = tokenizer.batch_decode(summary, skip_special_tokens = True, clean_up_tokenization_spaces = True)
+    return summary
 
 
-main(input_str, model_path, device)
+MODEL_TYPES = {"t5_base": dict(
+                func = t5_inference,
+            ), 
+            "roberta":dict(
+                func = roberta_inference,
+            ), 
+            "t5_child": dict(
+                func = t5_inference,
+            ), 
+            "roberta_child":dict(
+                func = roberta_inference,
+            ), 
+        }
+
+
+def summarize(args):
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    
+    for model, dic in MODEL_TYPES.items():
+        if re.match(model, args.model_type):
+            func = dic["func"]
+            return func(args.model_path, args.input_str, args.min_length, args.max_length, device)
+
+    raise RuntimeError(f"Not supported: model type={args.model_type}")
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(
+        description="Model Inference for text-summarization Project Yubaba",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "--model_type", 
+        type = str, 
+        default = "t5_base",
+        help = "Model type to use for text summarization. Currently supports t5-small and roberta models \
+                    Options: t5_base, roberta, t5_child, roberta_child",
+    )
+    parser.add_argument(
+        "--model_path",
+        type = str,
+        default = "",
+        help = "Path to model .pth file",
+    )
+    parser.add_argument(
+        "--max_length",
+        type = int,
+        default = 500,
+        help = "Maximum length limit of produced summarization",
+    )
+    parser.add_argument(
+        "--min_length",
+        type = int,
+        default = 20,
+        help = "Minimum length limit of produced summarization",
+    )
+    parser.add_argument(
+        "--input_str",
+        type = str,
+        required = True,
+        help = "Input String to summarize",
+    )
+    return parser
+
+
+def main():
+    parser = get_parser()
+    args = parser.parse_args()
+    summary = summarize(args)
+
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()

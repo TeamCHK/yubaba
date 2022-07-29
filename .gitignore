@@ -13,5 +13,7 @@ model_dev/env/
 # model files
 model_dev/models/*
 
+# pycache
+model_dev/__pycache__/
 
 .DS_STORE
