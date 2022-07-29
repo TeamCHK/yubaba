@@ -1,21 +1,34 @@
-const delay = (ms: number) : Promise<void> => {
-    return new Promise( resolve => setTimeout(resolve, ms));
-}
+import wretch from 'wretch';
+import { MsgType } from './types';
+
+
+var summarizedText: string | null;
+
+// TODO: Issue #14: Change url and endpoint after MLIS is ready
+const apiRoot: string = "http://localhost:8000";
+const summarizationEndpoint: string = "/summary";
 
 try {
-    // TODO: types of tabId, tab to be determined
-    chrome.tabs.onUpdated.addListener(async (tabId, tab) => {
-        if (tab.url && tab.url.includes("cnn.com/") && tab.url.includes("index.html") ) {
-            console.log(tab.url);
-            // TODO: replace delay with webpage load completion listener
-            await delay(3000);
-            chrome.tabs.sendMessage(tabId, {
-                url: tab.url,
-            })
-            console.log("Message sent from background script")
+    chrome.runtime.onMessage.addListener(
+        function(request, _, sendResponse) {
+            if (request.type === MsgType.PageContent) {
+                wretch(apiRoot + summarizationEndpoint)
+                .options({mode: "cors"})
+                .post({text: request.text})
+                .json(response => {
+                    summarizedText = response.text;
+                });
+            }
+            else if (request.type === MsgType.PopUpInit) {
+                if (summarizedText != null) {
+                    sendResponse({
+                        summary: summarizedText
+                    });
+                }
+            }
         }
-    })
-  } catch (err) {
+    );
+} catch (err) {
     const msg: String = (err instanceof Error) ? err.message : String(err);
     console.log(msg);
-  }
+};
