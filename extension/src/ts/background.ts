@@ -14,6 +14,7 @@ try {
                 if (textToSummarize != null) {
                     sendResponse({
                         textToSummarize: textToSummarize,
+                        // TODO: read article title from contentScript.ts & replace placeholder title
                         articleTitle: "'Article Title Placeholder'"
                     });
                 }
