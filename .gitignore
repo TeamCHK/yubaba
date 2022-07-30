@@ -3,6 +3,8 @@ node_modules/
 
 # build directory
 dist/
+icons/
+!extension/src/assets/icons/
 
 # Editor files
 .vscode/
