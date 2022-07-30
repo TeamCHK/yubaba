@@ -6,7 +6,7 @@ var textToSummarize: string | null;
 
 try {
     chrome.runtime.onMessage.addListener(
-        function(request, _, sendResponse) {
+        function (request, _, sendResponse) {
             if (request.type === MsgType.PageContent) {
                 textToSummarize = request.text;
             }
