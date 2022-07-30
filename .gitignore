@@ -4,7 +4,7 @@ node_modules/
 # build directory
 dist/
 icons/
-!extension/src/assets/icons/
+!extension/src/static/icons/
 
 # Editor files
 .vscode/
