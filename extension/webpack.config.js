@@ -44,14 +44,14 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/html/index.html',
+            template: './src/static/html/index.html',
             filename: 'index.html'
         }),
         new CopyPlugin({
             patterns: [
                 { from: "public" },
-                { from: "src/assets/icons", to: "icons/" },
-                { from: "src/css/index.css", to: "index.css" }
+                { from: "src/static/icons", to: "icons/" },
+                { from: "src/static/css/index.css", to: "index.css" }
             ],
         }),
     ],
