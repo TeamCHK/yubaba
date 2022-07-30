@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { createRoot, Root } from "react-dom/client";
 import {
     AppBar,
     Card,
@@ -28,7 +27,7 @@ function Popup() {
         const msg: PopupToBackgroundMsg = {
             type: MsgType.PopUpInit
         };
-        chrome.runtime.sendMessage(msg, function (response: BackgroundToPopupMsg) {
+        chrome.runtime.sendMessage(msg, (response: BackgroundToPopupMsg) => {
             if (response && response.textToSummarize) {
                 wretch(apiRoot + summarizationEndpoint)
                     .options({ mode: "cors" })
