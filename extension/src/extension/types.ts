@@ -13,5 +13,10 @@ export type PopupToBackgroundMsg = {
 };
 
 export type BackgroundToPopupMsg = {
-    summary: string
+    articleTitle: string,
+    textToSummarize: string
+};
+
+export type MLISResponse = {
+    text: string
 };
