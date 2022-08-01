@@ -10,7 +10,7 @@ const matchedFiles = glob.sync(`./src/extension/*(*.tsx|*.ts)`, {
 const entry = {}
 
 matchedFiles.forEach(file => {
-    const TS_FOLDER = path.join(__dirname, 'src/ts');
+    const TS_FOLDER = path.join(__dirname, 'src/extension');
     const ABS_PATH = path.join(__dirname, file);
 
     const relativeFile = path.relative(TS_FOLDER, ABS_PATH);
