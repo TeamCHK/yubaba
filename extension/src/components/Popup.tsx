@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { createRoot, Root } from "react-dom/client";
 import {
     AppBar,
     Card,
@@ -13,35 +12,34 @@ import {
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import wretch from 'wretch';
-import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "./types";
+import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "../extension/types";
 
 // TODO: Issue #14: Change url and endpoint after MLIS is ready
 const apiRoot: string = "http://localhost:8000";
 const summarizationEndpoint: string = "/summary";
 
-function Popup () {
-    const [isLoading, setIsLoading] = useState(false);
+function Popup() {
+    const [isLoading, setIsLoading] = useState(true);
     const [content, setContent] = useState('');
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        const msg : PopupToBackgroundMsg = {
+        const msg: PopupToBackgroundMsg = {
             type: MsgType.PopUpInit
         };
-        setIsLoading(true);
-        chrome.runtime.sendMessage(msg, function(response: BackgroundToPopupMsg) {
+        chrome.runtime.sendMessage(msg, (response: BackgroundToPopupMsg) => {
             if (response && response.textToSummarize) {
                 wretch(apiRoot + summarizationEndpoint)
-                .options({mode: "cors"})
-                .post({text: response.textToSummarize})
-                .json( (mlisResponse: MLISResponse) => {
-                    setArticleTitle(response.articleTitle);
-                    setContent(mlisResponse.text);
-                    setIsLoading(false);
-                });
+                    .options({ mode: "cors" })
+                    .post({ text: response.textToSummarize })
+                    .json((mlisResponse: MLISResponse) => {
+                        setArticleTitle(response.articleTitle);
+                        setContent(mlisResponse.text);
+                        setIsLoading(false);
+                    });
             }
         });
-    }, [setContent]);
+    }, []);
 
     return (
         <>
@@ -57,12 +55,12 @@ function Popup () {
             <Card sx={{ height: 400 }}>
                 <CardContent>
                     <Typography sx={{ fontSize: 18 }}>
-                        Summary of {articleTitle}: 
+                        Summary of {articleTitle}:
                     </Typography>
                 </CardContent>
                 <CardContent>
                     {(isLoading)
-                        ? <CircularProgress /> 
+                        ? <CircularProgress />
                         : <Typography variant="body2"> {content} </Typography>
                     }
                 </CardContent>
