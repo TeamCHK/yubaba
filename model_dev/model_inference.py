@@ -38,15 +38,19 @@ def t5_inference(model_path:str, input_str:Union[str, List[str]], \
 def roberta_inference(model_path:str, input_str:Union[str, List[str]], \
         min_length:int, max_length:int, device: Union[torch.device, int]) -> str:
     
-    model = EncoderDecoderModel.from_pretrained("roberta-base")
+    model = EncoderDecoderModel.from_encoder_decoder_pretrained("roberta-base", "roberta-base", tie_encoder_decoder=True)
     if not re.match(model_path, ""):
         model = model.load_state_dict(torch.load(model_path))
+    model.config.decoder_start_token_id = tokenizer.bos_token_id                                             
+    model.config.eos_token_id = tokenizer.eos_token_id
     model.eval()
     model.to(device)
-    
+
     tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
-    inputs = tokenizer(input_str, return_tensors="pt").to(device)
+    inputs = tokenizer(PREFIX_STR + input_str, return_tensors="pt").to(device)
     attention_mask = inputs.attention_mask.to(device)
+    inputs = inputs.input_ids.to(device)
+
     summary = model.generate(inputs, 
                         num_beams = 4,
                         no_repeat_ngram_size = 4,
