@@ -1,0 +1,22 @@
+dataset:
+    name: "wikihow"
+    portion: 0.01
+    data_dir: "/mnt/c/Users/alexk/OneDrive/Desktop/CHK_Summer/datasets/"
+tokenizer:
+    max_length: 1024
+model:
+    name: "t5_base"
+    checkpoint:
+
+
+train:
+    model_path: ""
+    checkpoint_path: ""
+    num_epochs: 1
+    learning_rate: 0.0003
+    weight_decay: 0.001
+    eps: 0.00000001
+    batch_size: 2
+    gradient_accum_steps: 8
+
+eval:

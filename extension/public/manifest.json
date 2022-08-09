@@ -1,0 +1,30 @@
+{
+    "name": "Yubaba",
+    "description": "Article Summarizer",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [{
+        "matches": ["*://*/*"],
+        "js": ["js/contentScript.js"]
+    }],
+    "icons": {
+        "16": "icons/temp_icon_16.png",
+        "32": "icons/temp_icon_32.png",
+        "48": "icons/temp_icon_48.png",
+        "128": "icons/temp_icon_128.png"
+    },
+    "background": {
+        "service_worker": "js/background.js"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "action": {
+        "default_icon": "icons/temp_icon_16.png",
+        "default_popup": "index.html"
+    }
+}
