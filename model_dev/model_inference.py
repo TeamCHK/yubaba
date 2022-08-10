@@ -46,7 +46,7 @@ def roberta_inference(model_path:str, input_str:Union[str, List[str]], \
     model.eval()
     model.to(device)
 
-    tokenizer = RobertaTokenizerFast.from_pretrained("roberta-base")
+    tokenizer = RobertaTokenizerFast.from_pretrained("bart")
     inputs = tokenizer(PREFIX_STR + input_str, return_tensors="pt").to(device)
     attention_mask = inputs.attention_mask.to(device)
     inputs = inputs.input_ids.to(device)
@@ -67,13 +67,13 @@ def roberta_inference(model_path:str, input_str:Union[str, List[str]], \
 MODEL_TYPES = {"t5_base": dict(
                 func = t5_inference,
             ), 
-            "roberta":dict(
+            "bart":dict(
                 func = roberta_inference,
             ), 
             "t5_child": dict(
                 func = t5_inference,
             ), 
-            "roberta_child":dict(
+            "bart_child":dict(
                 func = roberta_inference,
             ), 
         }
