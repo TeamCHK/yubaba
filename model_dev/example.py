@@ -154,4 +154,8 @@ trainer = Seq2SeqTrainer(
     eval_dataset=val,
 )
 
+<<<<<<< HEAD
 trainer.train()
+=======
+trainer.train()
+>>>>>>> e46bcd5773acbdd70e8c36f27d98cf0cede6f8ed

@@ -41,22 +41,23 @@ def t5_train(cfg: dict, train_loader, num_workers: int, device: str) -> None:
     optimizer.zero_grad()
     for epoch in range(num_epochs):
         for i, batch in enumerate(train_loader):
-            output = model(input_ids = batch["source_ids"].to(device), 
-                attention_mask = batch["source_mask"].to(device),
+            output = model(batch["source_ids"].to(device), 
+                attention_mask = batch["source_mask"].to(device), 
                 labels =  batch["target_ids"].to(device),
-                decoder_attention_mask = batch['target_mask'].to(device),
+                decoder_attention_mask=batch['target_mask'].to(device),
             )
+
             loss = output[0]
             loss.backward()
+
             steps += 1
-            
             if (cfg["gradient_accum_steps"] is not None and steps >= cfg["gradient_accum_steps"]):
                 steps = 0
                 optimizer.step()
                 optimizer.zero_grad()
         
         lr_scheduler.step()
-    
+
 def bart_train(cfg: dict, train_loader, num_workers: int, device: str) -> None:
     # TODO implement bart train
     return

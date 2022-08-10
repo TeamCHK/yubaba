@@ -18,7 +18,7 @@ class Wikihow(Dataset):
 
         inputs = self.tokenizer.batch_encode_plus([inputs], truncation = True, padding = "max_length", return_tensors = "pt")
         targets = self.tokenizer.batch_encode_plus([labels], truncation = True, padding = "max_length", return_tensors = "pt")
-
+        
         return {"source_ids": inputs["input_ids"].squeeze(), 
                 "source_mask": inputs["attention_mask"].squeeze(),
                 "target_ids": targets["input_ids"].squeeze(),

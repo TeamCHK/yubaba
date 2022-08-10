@@ -7,7 +7,6 @@ dist/
 # Editor files
 .vscode/
 
-<<<<<<< HEAD
 # virtual environment
 model_dev/env/
 
@@ -16,7 +15,5 @@ model_dev/models/*
 
 # pycache
 model_dev/__pycache__/
-=======
->>>>>>> 06acec8f1c6795591eb1ae5cf9fccdbd86661fe1
 
 .DS_STORE
