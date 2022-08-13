@@ -17,12 +17,7 @@ train:
     weight_decay: 0.001
     eps: 0.00000001
     batch_size: 2
-<<<<<<< HEAD
     gradient_accum_steps: 8
-
-
-=======
-    gradient_accumu_steps: 8
 
 eval:
 >>>>>>> e46bcd5773acbdd70e8c36f27d98cf0cede6f8ed
