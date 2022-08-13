@@ -33,7 +33,7 @@ def handler(event, context):
     }
     
     # Send error response if the given URL does not contain a valid article
-    if not article.is_valid_body:
+    if not article.is_valid_body():
         return {
             "statusCode": 400,
             "body": [{
