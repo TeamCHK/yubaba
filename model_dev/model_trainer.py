@@ -56,7 +56,7 @@ def t5_train(cfg: dict, train_loader, num_workers: int, device: str) -> None:
                 optimizer.step()
                 optimizer.zero_grad()
         
-        lr_scheduler.step()
+        scheduler.step()
 
 def bart_train(cfg: dict, train_loader, num_workers: int, device: str) -> None:
     # TODO implement bart train

@@ -7,13 +7,12 @@ dist/
 # Editor files
 .vscode/
 
-# virtual environment
-model_dev/env/
+# Python
+__pycache__/
+model_dev/__pycache__/
+
+# Mac OSX
+.DS_STORE
 
 # model files
 model_dev/models/*
-
-# pycache
-model_dev/__pycache__/
-
-.DS_STORE
