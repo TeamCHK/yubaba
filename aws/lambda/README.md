@@ -36,6 +36,6 @@ docker push 279578104300.dkr.ecr.us-east-1.amazonaws.com/lambda_function:latest
 aws lambda update-function-code --region us-east-1 --function-name pass-article-to-summarization-model --image-uri 279578104300.dkr.ecr.us-east-1.amazonaws.com/lambda_function:latest --profile AdministratorAccess-279578104300
 ```
 
-5. Start the notebook instance on SageMaker web page on 'Notebook'-'Notebook instances' page
+5. Start the notebook instance on [SageMaker notebook page](https://us-east-1.console.aws.amazon.com/sagemaker/home?region=us-east-1#/notebook-instances)
 
-6. Make sure the new lambda function's test passes by running tests on AWS Lambda web page
+6. Make sure the new lambda function's test passes by running tests on [AWS Lambda web page](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/pass-article-to-summarization-model?tab=testing)

@@ -33,6 +33,7 @@ def handler(event, context):
     }
     
     # Send error response if the given URL does not contain a valid article
+    # https://github.com/codelucas/newspaper/blob/master/newspaper/article.py#L322
     if not article.is_valid_body():
         return {
             "statusCode": 400,
