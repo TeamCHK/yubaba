@@ -6,7 +6,7 @@ tokenizer:
     max_length: 1024
 model:
     name: "t5_base"
-    checkpoint:
+    checkpoint: ""
 
 
 train:
@@ -18,5 +18,3 @@ train:
     eps: 0.00000001
     batch_size: 2
     gradient_accum_steps: 8
-
-eval:
