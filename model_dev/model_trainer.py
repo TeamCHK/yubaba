@@ -1,12 +1,6 @@
-import os
-import numpy as np
-import pandas as pd
 import torch
-import torch.nn.functional as F
-
 
 from transformers import T5Tokenizer, T5ForConditionalGeneration, BartTokenizer, BartForConditionalGeneration
-from torch import cuda
 from nlp import load_dataset
 from datasets.wikihow import Wikihow
 
@@ -106,7 +100,7 @@ def get_parser():
         "--config_path", 
         type = str, 
         default = "./configs/wikihow_t5.yaml",
-        help = "Model type to use for text summarization. Currently supports t5-small and roberta models \
+        help = "Model type to use for text summarization. Currently supports t5-small and bart models \
                     Options: t5_base, roberta, t5_child, roberta_child",
     )
     parser.add_argument(
