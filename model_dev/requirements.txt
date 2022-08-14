@@ -1,58 +1,148 @@
-aiohttp @ file:///home/conda/feedstock_root/build_artifacts/aiohttp_1649013149994/work
-aiosignal @ file:///home/conda/feedstock_root/build_artifacts/aiosignal_1636093929600/work
-async-timeout @ file:///home/conda/feedstock_root/build_artifacts/async-timeout_1640026696943/work
-attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1659291887007/work
-Bottleneck @ file:///tmp/build/80754af9/bottleneck_1648010766492/work
-brotlipy==0.7.0
-certifi==2022.6.15
-cffi @ file:///home/builder/ci_310/cffi_1642753365720/work
-charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
-click @ file:///home/conda/feedstock_root/build_artifacts/click_1651215151197/work
-colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1655412516417/work
-cryptography @ file:///tmp/build/80754af9/cryptography_1652101588599/work
-dataclasses @ file:///home/conda/feedstock_root/build_artifacts/dataclasses_1628958434797/work
-datasets @ file:///home/conda/feedstock_root/build_artifacts/datasets_1658788848069/work
-dill @ file:///home/conda/feedstock_root/build_artifacts/dill_1653058582944/work
-filelock @ file:///home/conda/feedstock_root/build_artifacts/filelock_1654070194245/work
-frozenlist @ file:///home/conda/feedstock_root/build_artifacts/frozenlist_1648771692480/work
-fsspec @ file:///home/conda/feedstock_root/build_artifacts/fsspec_1659099796968/work
-huggingface-hub @ file:///home/conda/feedstock_root/build_artifacts/huggingface_hub_1656151962285/work
-idna @ file:///tmp/build/80754af9/idna_1637925883363/work
-importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1653252803161/work
-joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1633637554808/work
-mkl-fft==1.3.1
-mkl-random @ file:///home/builder/ci_310/mkl_random_1641843545607/work
-mkl-service==2.4.0
-multidict @ file:///home/conda/feedstock_root/build_artifacts/multidict_1648882415384/work
-multiprocess @ file:///home/conda/feedstock_root/build_artifacts/multiprocess_1647855903124/work
-nlp @ file:///home/conda/feedstock_root/build_artifacts/nlp_1596736864032/work
-numexpr @ file:///opt/conda/conda-bld/numexpr_1656071944761/work
-numpy @ file:///opt/conda/conda-bld/numpy_and_numpy_base_1652801679809/work
-packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
-pandas==1.4.2
-Pillow==9.0.1
-pyarrow==8.0.0
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
-pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
-PySocks @ file:///home/builder/ci_310/pysocks_1640793678128/work
-python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1647961439546/work
-PyYAML @ file:///home/conda/feedstock_root/build_artifacts/pyyaml_1648757090803/work
-regex @ file:///tmp/build/80754af9/regex_1648429580840/work
-requests @ file:///opt/conda/conda-bld/requests_1641824580448/work
-responses @ file:///home/conda/feedstock_root/build_artifacts/responses_1643839609465/work
-sacremoses @ file:///home/conda/feedstock_root/build_artifacts/sacremoses_1651557636210/work
-sentencepiece==0.1.96
-six @ file:///tmp/build/80754af9/six_1644875935023/work
-tokenizers @ file:///opt/conda/conda-bld/tokenizers_1651822590771/work
-torch==1.12.0
-torchaudio==0.12.0
-torchvision==0.13.0
-tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1649051611147/work
-transformers @ file:///home/conda/feedstock_root/build_artifacts/transformers_1658975006560/work
-typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
-urllib3 @ file:///opt/conda/conda-bld/urllib3_1650637206367/work
-xxhash @ file:///home/conda/feedstock_root/build_artifacts/python-xxhash_1649442408890/work
-yarl @ file:///home/conda/feedstock_root/build_artifacts/yarl_1648966516552/work
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1649012893348/work
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+_libgcc_mutex=0.1=main
+_openmp_mutex=5.1=1_gnu
+abseil-cpp=20211102.0=h27087fc_1
+aiohttp=3.8.1=pypi_0
+aiosignal=1.2.0=pyhd8ed1ab_0
+arrow-cpp=8.0.0=py310h3098874_0
+async-timeout=4.0.2=pyhd8ed1ab_0
+attrs=22.1.0=pyh71513ae_1
+aws-c-common=0.4.57=he6710b0_1
+aws-c-event-stream=0.1.6=h2531618_5
+aws-checksums=0.1.9=he6710b0_0
+aws-sdk-cpp=1.8.185=hce553d0_0
+blas=1.0=mkl
+boost-cpp=1.78.0=he72f1d9_0
+bottleneck=1.3.4=pypi_0
+brotli=1.0.9=h166bdaf_7
+brotli-bin=1.0.9=h166bdaf_7
+brotlipy=0.7.0=pypi_0
+bzip2=1.0.8=h7b6447c_0
+c-ares=1.18.1=h7f98852_0
+ca-certificates=2022.6.15=ha878542_0
+certifi=2022.6.15=pypi_0
+cffi=1.15.0=pypi_0
+charset-normalizer=2.0.4=pyhd3eb1b0_0
+click=8.1.3=pypi_0
+colorama=0.4.5=pyhd8ed1ab_0
+cryptography=37.0.1=pypi_0
+cudatoolkit=11.3.1=h2bc3f7f_2
+dataclasses=0.8=pyhc8e2a94_3
+datasets=2.4.0=pyhd8ed1ab_0
+dill=0.3.5.1=pyhd8ed1ab_0
+ffmpeg=4.3=hf484d3e_0
+filelock=3.7.1=pyhd8ed1ab_0
+freetype=2.11.0=h70c0345_0
+frozenlist=1.3.0=pypi_0
+fsspec=2022.7.1=pyhd8ed1ab_0
+gflags=2.2.2=he1b5a44_1004
+giflib=5.2.1=h7b6447c_0
+glog=0.6.0=h6f12383_0
+gmp=6.2.1=h295c915_3
+gnutls=3.6.15=he1e5248_0
+grpc-cpp=1.46.1=h33aed49_0
+huggingface_hub=0.8.1=pyhd8ed1ab_0
+icu=70.1=h27087fc_0
+idna=3.3=pyhd3eb1b0_0
+importlib-metadata=4.11.4=pypi_0
+importlib_metadata=4.11.4=hd8ed1ab_0
+intel-openmp=2021.4.0=h06a4308_3561
+joblib=1.1.0=pyhd8ed1ab_0
+jpeg=9e=h7f8727e_0
+keyutils=1.6.1=h166bdaf_0
+krb5=1.19.3=h3790be6_0
+lame=3.100=h7b6447c_0
+lcms2=2.12=h3be6417_0
+ld_impl_linux-64=2.38=h1181459_1
+libbrotlicommon=1.0.9=h166bdaf_7
+libbrotlidec=1.0.9=h166bdaf_7
+libbrotlienc=1.0.9=h166bdaf_7
+libcurl=7.82.0=h0b77cf5_0
+libedit=3.1.20191231=he28a2e2_2
+libev=4.33=h516909a_1
+libevent=2.1.10=h9b69904_4
+libffi=3.3=he6710b0_2
+libgcc-ng=11.2.0=h1234567_1
+libgomp=11.2.0=h1234567_1
+libiconv=1.16=h7f8727e_2
+libidn2=2.3.2=h7f8727e_0
+libnghttp2=1.46.0=hce63b2e_0
+libpng=1.6.37=hbc83047_0
+libprotobuf=3.20.1=h4ff587b_0
+libssh2=1.10.0=ha56f1ee_2
+libstdcxx-ng=11.2.0=h1234567_1
+libtasn1=4.16.0=h27cfd23_0
+libthrift=0.15.0=he6d91bd_0
+libtiff=4.2.0=h2818925_1
+libunistring=0.9.10=h27cfd23_0
+libuuid=1.0.3=h7f8727e_2
+libwebp=1.2.2=h55f646e_0
+libwebp-base=1.2.2=h7f8727e_0
+lz4-c=1.9.3=h295c915_1
+mkl=2021.4.0=h06a4308_640
+mkl-fft=1.3.1=pypi_0
+mkl-random=1.2.2=pypi_0
+mkl-service=2.4.0=pypi_0
+mkl_fft=1.3.1=py310hd6ae3a3_0
+mkl_random=1.2.2=py310h00e6091_0
+multidict=6.0.2=pypi_0
+multiprocess=0.70.12.2=pypi_0
+ncurses=6.3=h7f8727e_2
+nettle=3.7.3=hbbd107a_1
+nlp=0.4.0=pyh9f0ad1d_0
+numexpr=2.8.1=pypi_0
+numpy=1.22.3=pypi_0
+numpy-base=1.22.3=py310h9585f30_0
+openh264=2.1.1=h4ff587b_0
+openssl=1.1.1o=h7f8727e_0
+orc=1.7.4=h07ed6aa_0
+packaging=21.3=pyhd8ed1ab_0
+pandas=1.4.2=pypi_0
+pillow=9.0.1=pypi_0
+pip=21.2.4=pypi_0
+pyarrow=8.0.0=pypi_0
+pycparser=2.21=pyhd3eb1b0_0
+pyopenssl=22.0.0=pyhd3eb1b0_0
+pyparsing=3.0.9=pyhd8ed1ab_0
+pysocks=1.7.1=pypi_0
+python=3.10.4=h12debd9_0
+python-dateutil=2.8.2=pyhd8ed1ab_0
+python-xxhash=3.0.0=py310h5764c6d_1
+python_abi=3.10=2_cp310
+pytorch=1.12.0=py3.10_cuda11.3_cudnn8.3.2_0
+pytorch-mutex=1.0=cuda
+pytz=2022.1=pyhd8ed1ab_0
+pyyaml=6.0=pypi_0
+re2=2022.04.01=h27087fc_0
+readline=8.1.2=h7f8727e_1
+regex=2022.3.15=pypi_0
+requests=2.27.1=pyhd3eb1b0_0
+responses=0.18.0=pyhd8ed1ab_0
+sacremoses=0.0.53=pyhd8ed1ab_0
+sentencepiece=0.1.96=pypi_0
+setuptools=61.2.0=pypi_0
+six=1.16.0=pyhd3eb1b0_1
+snappy=1.1.9=hbd366e4_1
+sqlite=3.38.5=hc218d9a_0
+tk=8.6.12=h1ccaba5_0
+tokenizers=0.11.4=pypi_0
+torch=1.12.0=pypi_0
+torchaudio=0.12.0=pypi_0
+torchvision=0.13.0=pypi_0
+tqdm=4.64.0=pyhd8ed1ab_0
+transformers=4.21.0=pyhd8ed1ab_0
+typing-extensions=4.1.1=hd3eb1b0_0
+typing_extensions=4.1.1=pyh06a4308_0
+tzdata=2022a=hda174b7_0
+urllib3=1.26.9=pypi_0
+utf8proc=2.6.1=h27cfd23_0
+wheel=0.37.1=pyhd3eb1b0_0
+xxhash=0.0.0=pypi_0
+xz=5.2.5=h7f8727e_1
+yaml=0.2.5=h7f98852_2
+yarl=1.7.2=pypi_0
+zipp=3.8.0=pyhd8ed1ab_0
+zlib=1.2.12=h7f8727e_2
+zstd=1.5.2=ha4553b6_0
