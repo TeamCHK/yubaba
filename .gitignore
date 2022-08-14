@@ -7,5 +7,8 @@ dist/
 # Editor files
 .vscode/
 
+# Python
+__pycache__/
 
+# Mac OSX
 .DS_STORE
