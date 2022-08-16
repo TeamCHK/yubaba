@@ -1,24 +1,20 @@
 import wretch from 'wretch';
-import { MsgType } from './types';
+import { MLISRequest, MLISResponse } from './types';
 
+// TODO: Issue #14: Change url and endpoint after MLIS is ready
+const apiRoot: string = "http://localhost:8000";
+const summarizationEndpoint: string = "/summary";
 
-var textToSummarize: string | null;
 
 try {
     chrome.runtime.onMessage.addListener(
-        function (request, _, sendResponse) {
-            if (request.type === MsgType.PageContent) {
-                textToSummarize = request.text;
-            }
-            else if (request.type === MsgType.PopUpInit) {
-                if (textToSummarize != null) {
-                    sendResponse({
-                        textToSummarize: textToSummarize,
-                        // TODO: read article title from contentScript.ts & replace placeholder title
-                        articleTitle: "'Article Title Placeholder'"
-                    });
-                }
-            }
+        function (request: MLISRequest, _, sendResponse: (response: MLISResponse) => void) {
+            wretch(apiRoot + summarizationEndpoint)
+                .options({ mode: "cors" })
+                .post({ text: request.url })
+                .json((mlisResponse: MLISResponse) => {
+                    sendResponse(mlisResponse)
+                });
         }
     );
 } catch (err) {

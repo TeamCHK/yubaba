@@ -3,20 +3,13 @@ import {
     AppBar,
     Card,
     CardContent,
-    CardHeader,
     CircularProgress,
     CssBaseline,
-    Link,
     Toolbar,
     Typography
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import wretch from 'wretch';
-import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "../extension/types";
-
-// TODO: Issue #14: Change url and endpoint after MLIS is ready
-const apiRoot: string = "http://localhost:8000";
-const summarizationEndpoint: string = "/summary";
+import { MLISRequest, MLISResponse } from "../extension/types";
 
 function Popup() {
     const [isLoading, setIsLoading] = useState(true);
@@ -24,19 +17,14 @@ function Popup() {
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        const msg: PopupToBackgroundMsg = {
-            type: MsgType.PopUpInit
+        const request: MLISRequest = {
+            url: window.location.href,
         };
-        chrome.runtime.sendMessage(msg, (response: BackgroundToPopupMsg) => {
-            if (response && response.textToSummarize) {
-                wretch(apiRoot + summarizationEndpoint)
-                    .options({ mode: "cors" })
-                    .post({ text: response.textToSummarize })
-                    .json((mlisResponse: MLISResponse) => {
-                        setArticleTitle(response.articleTitle);
-                        setContent(mlisResponse.text);
-                        setIsLoading(false);
-                    });
+        chrome.runtime.sendMessage(request, (response: MLISResponse) => {
+            if (response && response.articleSummary) {
+                setArticleTitle(response.articleTitle);
+                setContent(response.articleSummary);
+                setIsLoading(false);
             }
         });
     }, []);
