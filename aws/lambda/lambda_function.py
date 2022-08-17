@@ -46,11 +46,11 @@ def handler(event, context):
     response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
                                        ContentType='application/json',
                                        Body=json.dumps(inference_payload))
-    response_dict = json.loads(response['Body'].read().decode())
-    logging.debug(response_dict)
+    result = json.loads(response['Body'].read().decode())[0]
+    logging.debug(f"Response dict: {result}")
 
     endpoint_response = {
-        'articleSummary': response_dict['summary_text'],
+        'articleSummary': result['summary_text'],
         'articleTitle': article.title,
         'articleAuthors': article.authors,
         'publishDate': article.publish_date,
