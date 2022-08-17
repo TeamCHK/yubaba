@@ -53,7 +53,7 @@ def handler(event, context):
         'articleSummary': result['summary_text'],
         'articleTitle': article.title,
         'articleAuthors': article.authors,
-        'publishDate': article.publish_date,
+        'publishDate': article.publish_date.isoformat(),
     }
     
     return {
