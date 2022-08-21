@@ -43,6 +43,7 @@ def handler(event, context):
         }
     
     # Invoke an inference endpoint
+    # Response example: [{'summary_text': 'This is an example of article summary.'}]
     response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
                                        ContentType='application/json',
                                        Body=json.dumps(inference_payload))
