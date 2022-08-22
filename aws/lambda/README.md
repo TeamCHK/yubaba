@@ -40,4 +40,4 @@ aws lambda update-function-code --region us-east-1 --function-name summarize --i
 
 7. Start the notebook instance on [SageMaker notebook page](https://us-east-1.console.aws.amazon.com/sagemaker/home?region=us-east-1#/notebook-instances)
 
-8. Make sure the new lambda function's test passes by running tests on [AWS Lambda web page](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/pass-article-to-summarization-model?tab=testing)
+8. Make sure the new lambda function's test passes by running tests on [AWS Lambda web page](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/summarize?tab=testing)
