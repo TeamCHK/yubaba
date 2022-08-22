@@ -1,8 +1,6 @@
 import wretch from 'wretch';
 import { MLISRequest, MLISResponse } from './types';
 
-// TODO: Issue #14: Change url and endpoint after MLIS is ready
-// const apiRoot: string = "http://localhost:8000";
 const apiRoot: string = "https://aacxuouv1m.execute-api.us-east-1.amazonaws.com/default";
 const summarizationEndpoint: string = "/summarize";
 
