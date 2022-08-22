@@ -13,7 +13,7 @@ def handler(event, context):
     # Extract URL from the request
     logging.info("Received event: " + json.dumps(event, indent=2))
     data = json.loads(json.dumps(event))
-    url = data["body"]["url"]
+    url = json.loads(data["body"])["url"]
     
     # Download article from the given URL
     logging.info(f"Downloading article from: {url}")
