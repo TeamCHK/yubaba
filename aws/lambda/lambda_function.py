@@ -37,9 +37,10 @@ def handler(event, context):
     if not article.is_valid_body():
         return {
             "statusCode": 400,
-            "body": [{
+            'headers': {'Content-Type': 'application/json'},
+            "body": json.dumps([{
                 "url": url
-            }]
+            }])
         }
     
     # Invoke an inference endpoint
@@ -59,5 +60,6 @@ def handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': endpoint_response,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps(endpoint_response),
     }
