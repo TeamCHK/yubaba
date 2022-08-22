@@ -4,11 +4,10 @@ import { MLISRequest, MLISResponse } from './types';
 const apiRoot: string = "https://aacxuouv1m.execute-api.us-east-1.amazonaws.com/default";
 const summarizationEndpoint: string = "/summarize";
 
-console.log("background")
 try {
     chrome.runtime.onMessage.addListener(
         function (request: MLISRequest, _, sendResponse: (response: MLISResponse) => void) {
-            console.log("Message received")
+            console.log("[Yubaba] Waiting for summarization process...")
             wretch(apiRoot + summarizationEndpoint)
                 .options({ mode: "cors" })
                 .post({ url: request.url })
