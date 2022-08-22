@@ -33,7 +33,7 @@ docker push 279578104300.dkr.ecr.us-east-1.amazonaws.com/lambda_function:latest
 
 4. Update the lambda function with the newly uploaded image
 ```
-aws lambda update-function-code --region us-east-1 --function-name pass-article-to-summarization-model --image-uri 279578104300.dkr.ecr.us-east-1.amazonaws.com/lambda_function:latest --profile AdministratorAccess-279578104300
+aws lambda update-function-code --region us-east-1 --function-name summarize --image-uri 279578104300.dkr.ecr.us-east-1.amazonaws.com/lambda_function:latest --profile AdministratorAccess-279578104300
 ```
 
 5. Start the notebook instance on [SageMaker notebook page](https://us-east-1.console.aws.amazon.com/sagemaker/home?region=us-east-1#/notebook-instances)
