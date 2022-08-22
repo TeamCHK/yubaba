@@ -17,15 +17,17 @@ function Popup() {
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        const request: MLISRequest = {
-            url: window.location.href,
-        };
-        chrome.runtime.sendMessage(request, (response: MLISResponse) => {
-            if (response && response.articleSummary) {
-                setArticleTitle(response.articleTitle);
-                setContent(response.articleSummary);
-                setIsLoading(false);
-            }
+        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+            const request: MLISRequest = {
+                url: tabs[0].url,
+            };
+            chrome.runtime.sendMessage(request, (response: MLISResponse) => {
+                if (response && response.articleSummary) {
+                    setArticleTitle(response.articleTitle);
+                    setContent(response.articleSummary);
+                    setIsLoading(false);
+                }
+            });
         });
     }, []);
 
