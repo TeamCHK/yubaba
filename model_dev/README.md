@@ -14,3 +14,7 @@ Add COMET API KEY to your ~/.bashrc
 ```bash
 export COMET_API_KEY="YOUR_COMET_API_KEY"
 ```
+# Run Inference
+
+
+# Run Training
