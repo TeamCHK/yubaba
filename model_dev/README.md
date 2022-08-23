@@ -9,3 +9,8 @@ git clone https://github.com/TeamCHK/yubaba.git
 cd model_dev
 pip install -r requirements.txt
 ```
+
+Add COMET API KEY to your ~/.bashrc
+```bash
+export COMET_API_KEY="YOUR_COMET_API_KEY"
+```
