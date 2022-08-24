@@ -7,6 +7,11 @@ from datasets.wikihow import Wikihow
 import yaml
 import argparse
 import re
+import logging
+import time
+
+logging.basicConfig(level = logging.INFO)
+logger = logging.getLogger("[Model Inference]")
 
 def get_t5_tokenizer(max_length):
     return T5Tokenizer.from_pretrained('t5-small', model_max_length = max_length)
@@ -117,7 +122,8 @@ def main():
 
     with open(args.config_path, "r") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
-        
+    
+    print("Running on Device: {}".format(torch.cuda.device()))
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     
     for model, dic in MODEL_TYPES.items():
