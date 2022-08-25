@@ -17,9 +17,9 @@ function Popup() {
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
             const request: MLISRequest = {
-                url: tabs[0].url,
+                url: tab.url,
             };
             chrome.runtime.sendMessage(request, (response: MLISResponse) => {
                 if (response && response.articleSummary) {
