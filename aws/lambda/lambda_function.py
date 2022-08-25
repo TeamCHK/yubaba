@@ -11,6 +11,7 @@ runtime = boto3.client('runtime.sagemaker')
 
 def handler(event, context):
     # Extract URL from the request
+    # Request example: {"headers": {}, "httpMethod": "POST", "body": "{\"url\":\"https://example.com\"}"}
     logging.info("Received event: " + json.dumps(event, indent=2))
     data = json.loads(json.dumps(event))
     url = json.loads(data["body"])["url"]
@@ -36,7 +37,7 @@ def handler(event, context):
     # https://github.com/codelucas/newspaper/blob/master/newspaper/article.py#L322
     if not article.is_valid_body():
         return {
-            "statusCode": 400,
+            "statusCode": 202,
             'headers': {'Content-Type': 'application/json'},
             "body": json.dumps([{
                 "url": url
