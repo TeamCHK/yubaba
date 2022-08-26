@@ -15,6 +15,9 @@ try {
             wretch(apiRoot + summarizationEndpoint)
                 .options({ mode: "cors" })
                 .post({ url: request.url })
+                .error(500, error => {
+                    // TODO: Implement error page (https://github.com/TeamCHK/yubaba/issues/24)
+                })
                 .res(res => {
                     res.json().then(body => {
                         console.log(`[Yubaba] (${res.status}) Received response:`)
