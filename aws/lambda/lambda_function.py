@@ -28,22 +28,22 @@ def handler(event, context):
     logging.debug(f"Article date: {article.publish_date}")
     logging.debug(f"Article authors: {article.authors}")
     
-    # Set up inference payload that contains article body
-    inference_payload = {
-        "inputs": [article.text]
-    }
-    
     # Send error response if the given URL does not contain a valid article
     # https://github.com/codelucas/newspaper/blob/master/newspaper/article.py#L322
     if not article.is_valid_body():
         return {
             "statusCode": 202,
             'headers': {'Content-Type': 'application/json'},
-            "body": json.dumps([{
-                "url": url
-            }])
+            "body": json.dumps({
+                "message": "There are not enough texts on this page to generate summary!"
+            })
         }
     
+    # Set up inference payload that contains article body
+    inference_payload = {
+        "inputs": [article.text]
+    }
+
     # Invoke an inference endpoint
     # Response example: [{'summary_text': 'This is an example of article summary.'}]
     response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,

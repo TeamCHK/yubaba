@@ -3,8 +3,10 @@ export type MLISRequest = {
 }
 
 export type MLISResponse = {
-    articleSummary: string,
+    status: number,
+    message?: string,
+    articleSummary?: string,
     articleTitle?: string,
     articleAuthors?: string[],
     publishDate?: Date,
-};
+}

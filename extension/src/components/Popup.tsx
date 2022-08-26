@@ -22,10 +22,13 @@ function Popup() {
                 url: tab.url,
             };
             chrome.runtime.sendMessage(request, (response: MLISResponse) => {
-                if (response && response.articleSummary) {
-                    setArticleTitle(response.articleTitle);
-                    setContent(response.articleSummary);
+                if (response.status == 200 && response.articleSummary) {
+                    setArticleTitle(response.articleTitle!);
+                    setContent(response.articleSummary!);
                     setIsLoading(false);
+                }
+                else if (response.status == 202) {
+                    setContent(response.message!);
                 }
             });
         });

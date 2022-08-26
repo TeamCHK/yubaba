@@ -6,15 +6,25 @@ const summarizationEndpoint: string = "/summarize";
 
 try {
     chrome.runtime.onMessage.addListener(
-        function (request: MLISRequest, _, sendResponse: (response: MLISResponse) => void) {
+        function (
+            request: MLISRequest,
+            _,
+            sendResponse: (response: MLISResponse) => void
+        ) {
             console.log("[Yubaba] Waiting for summarization process...")
             wretch(apiRoot + summarizationEndpoint)
                 .options({ mode: "cors" })
                 .post({ url: request.url })
-                .json((mlisResponse: MLISResponse) => {
-                    console.log(mlisResponse)
-                    sendResponse(mlisResponse)
-                });
+                .res(res => {
+                    res.json().then(body => {
+                        console.log(`[Yubaba] (${res.status}) Received response:`)
+                        console.log(body)
+                        sendResponse({
+                            ...body,
+                            status: res.status,
+                        })
+                    })
+                })
         }
     );
 } catch (err) {
