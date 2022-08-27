@@ -50,14 +50,20 @@ function Popup() {
             </AppBar>
             <Card sx={{ height: 400 }}>
                 <CardContent>
-                    <Typography sx={{ fontSize: 18 }}>
-                        Summary of {articleTitle}:
-                    </Typography>
-                </CardContent>
-                <CardContent>
                     {(isLoading)
                         ? <CircularProgress />
-                        : <Typography variant="body2"> {content} </Typography>
+                        : (
+                            <>
+                                <CardContent>
+                                    <Typography sx={{ fontSize: 18 }}>
+                                        {articleTitle}
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <Typography variant="body2"> {content} </Typography>
+                                </CardContent>
+                            </>
+                        )
                     }
                 </CardContent>
             </Card>
