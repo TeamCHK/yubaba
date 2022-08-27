@@ -30,6 +30,7 @@ function Popup() {
                     }
                     else if (response.status == 202) {
                         setContent(response.message!);
+                        setIsLoading(false);
                     }
                 });
             });
