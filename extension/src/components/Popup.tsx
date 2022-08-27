@@ -8,13 +8,16 @@ import {
     Toolbar,
     Typography
 } from '@mui/material';
+import Article from "./Article";
 import SettingsIcon from '@mui/icons-material/Settings';
 import { MLISRequest, MLISResponse } from "../extension/types";
 
 function Popup() {
     const [isLoading, setIsLoading] = useState(true);
-    const [content, setContent] = useState('');
     const [articleTitle, setArticleTitle] = useState('');
+    const [articleSummary, setArticleSummary] = useState('');
+    const [articleAuthors, setArticleAuthors] = useState([]);
+    const [articleDate, setArticleDate] = useState(null);
 
     useEffect(() => {
         chrome.windows.getCurrent(w => {
@@ -25,17 +28,21 @@ function Popup() {
                 chrome.runtime.sendMessage(request, (response: MLISResponse) => {
                     if (response.status == 200 && response.articleSummary) {
                         setArticleTitle(response.articleTitle!);
-                        setContent(response.articleSummary!);
+                        setArticleSummary(response.articleSummary!);
+                        setArticleAuthors(response.articleAuthors!);
+                        setArticleDate(new Date(response.publishDate!));
                         setIsLoading(false);
                     }
                     else if (response.status == 202) {
-                        setContent(response.message!);
+                        setArticleTitle(response.message!);
                         setIsLoading(false);
                     }
                 });
             });
         });
     }, []);
+
+    const articleProps = { articleTitle, articleSummary, articleAuthors, articleDate }
 
     return (
         <>
@@ -50,21 +57,7 @@ function Popup() {
             </AppBar>
             <Card sx={{ height: 400 }}>
                 <CardContent>
-                    {(isLoading)
-                        ? <CircularProgress />
-                        : (
-                            <>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 18 }}>
-                                        {articleTitle}
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
-                                    <Typography variant="body2"> {content} </Typography>
-                                </CardContent>
-                            </>
-                        )
-                    }
+                    {isLoading ? <CircularProgress /> : <Article {...articleProps} />}
                 </CardContent>
             </Card>
         </>
