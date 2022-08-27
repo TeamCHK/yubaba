@@ -17,19 +17,21 @@ function Popup() {
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        chrome.tabs.query({ active: true, lastFocusedWindow: true }, ([tab]) => {
-            const request: MLISRequest = {
-                url: tab.url,
-            };
-            chrome.runtime.sendMessage(request, (response: MLISResponse) => {
-                if (response.status == 200 && response.articleSummary) {
-                    setArticleTitle(response.articleTitle!);
-                    setContent(response.articleSummary!);
-                    setIsLoading(false);
-                }
-                else if (response.status == 202) {
-                    setContent(response.message!);
-                }
+        chrome.windows.getCurrent(w => {
+            chrome.tabs.query({ active: true, windowId: w.id }, ([tab]) => {
+                const request: MLISRequest = {
+                    url: tab.url,
+                };
+                chrome.runtime.sendMessage(request, (response: MLISResponse) => {
+                    if (response.status == 200 && response.articleSummary) {
+                        setArticleTitle(response.articleTitle!);
+                        setContent(response.articleSummary!);
+                        setIsLoading(false);
+                    }
+                    else if (response.status == 202) {
+                        setContent(response.message!);
+                    }
+                });
             });
         });
     }, []);
