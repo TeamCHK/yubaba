@@ -3,20 +3,13 @@ import {
     AppBar,
     Card,
     CardContent,
-    CardHeader,
     CircularProgress,
     CssBaseline,
-    Link,
     Toolbar,
     Typography
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import wretch from 'wretch';
-import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "../extension/types";
-
-// TODO: Issue #14: Change url and endpoint after MLIS is ready
-const apiRoot: string = "http://localhost:8000";
-const summarizationEndpoint: string = "/summary";
+import { MLISRequest, MLISResponse } from "../extension/types";
 
 function Popup() {
     const [isLoading, setIsLoading] = useState(true);
@@ -24,20 +17,23 @@ function Popup() {
     const [articleTitle, setArticleTitle] = useState('');
 
     useEffect(() => {
-        const msg: PopupToBackgroundMsg = {
-            type: MsgType.PopUpInit
-        };
-        chrome.runtime.sendMessage(msg, (response: BackgroundToPopupMsg) => {
-            if (response && response.textToSummarize) {
-                wretch(apiRoot + summarizationEndpoint)
-                    .options({ mode: "cors" })
-                    .post({ text: response.textToSummarize })
-                    .json((mlisResponse: MLISResponse) => {
-                        setArticleTitle(response.articleTitle);
-                        setContent(mlisResponse.text);
+        chrome.windows.getCurrent(w => {
+            chrome.tabs.query({ active: true, windowId: w.id }, ([tab]) => {
+                const request: MLISRequest = {
+                    url: tab.url,
+                };
+                chrome.runtime.sendMessage(request, (response: MLISResponse) => {
+                    if (response.status == 200 && response.articleSummary) {
+                        setArticleTitle(response.articleTitle!);
+                        setContent(response.articleSummary!);
                         setIsLoading(false);
-                    });
-            }
+                    }
+                    else if (response.status == 202) {
+                        setContent(response.message!);
+                        setIsLoading(false);
+                    }
+                });
+            });
         });
     }, []);
 
