@@ -20,14 +20,14 @@ try {
                 })
                 .res(res => {
                     res.json().then(body => {
-                        console.log(`[Yubaba] (${res.status}) Received response:`)
-                        console.log(body)
+                        console.log(`[Yubaba] (${res.status}) Received response:`, body)
                         sendResponse({
                             ...body,
                             status: res.status,
                         })
                     })
                 })
+            return true; // This allows message sender to wait for async sendResponse
         }
     );
 } catch (err) {
