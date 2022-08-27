@@ -21,7 +21,7 @@ const Article = (props: ArticleProps) => {
         <Typography variant="h6"> {articleTitle} </Typography>
       </CardContent>
       <CardContent>
-        <Typography variant="subtitle1"> {articleDate.toLocaleDateString()} </Typography>
+        <Typography variant="subtitle1"> {articleDate ? articleDate.toLocaleDateString() : ""} </Typography>
       </CardContent>
       <CardContent>
         <Typography variant="subtitle1"> {articleAuthors.join(', ')} </Typography>
