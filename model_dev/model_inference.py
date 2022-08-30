@@ -12,14 +12,21 @@ import re
 import logging
 import time
 
+# Extractive Summarizer
+from summarizer import Summarizer
+from summarizer.sbert import SBertSummarizer
+
 PREFIX_STR = "summarize: "
 logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger("[Model Inference]")
 
 def t5_inference(model_type: str, model_path:str, input_str: str, \
         min_length:int, max_length:int, device: Union[torch.device, int]) -> str:
-    
-    model = T5ForConditionalGeneration.from_pretrained('t5-small')
+    if re.match(model_type, "t5_large"):
+        model = T5ForConditionalGeneration.from_pretrained('t5-large')
+    else:
+        model = T5ForConditionalGeneration.from_pretrained('t5-small')
+
     if not re.match(model_path, ""):
         model.load_state_dict(torch.load(model_path))
     model.eval()
@@ -46,6 +53,9 @@ def bart_inference(model_type: str, model_path:str, input_str: str, \
     if re.match(model_type, "bart_cnn"):
         model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-12-6")
         tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
+    elif re.match(model_type, "bart_xsum"):
+        model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-xsum")
+        tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-xsum")
     else:
         model = BartForConditionalGeneration.from_pretrained("facebook/bart-large-cnn")
         tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn", model_max_length = max_length)
@@ -73,13 +83,19 @@ def bart_inference(model_type: str, model_path:str, input_str: str, \
 MODEL_TYPES = {"t5_base": dict(
                 func = t5_inference,
             ), 
+            "t5_large": dict(
+                func = t5_inference,
+            ), 
             "t5_child": dict(
                 func = t5_inference,
             ),
             "bart_base":dict(
                 func = bart_inference,
-            ),  
+            ),
             "bart_child":dict(
+                func = bart_inference,
+            ),  
+            "bart_xsum":dict(
                 func = bart_inference,
             ), 
             "bart_cnn":dict(
@@ -87,11 +103,21 @@ MODEL_TYPES = {"t5_base": dict(
             ), 
         }
 
+def extractive_summarizer(model_type: str, input_str: str, num_sentences = 5) -> str:
+    if re.match(model_type, "sentence-bert"):
+        model = SBertSummarizer('paraphrase-MiniLM-L6-v2')
+    else:
+        model = Summarizer('distilbert-base-uncased', hidden = [-1, -2], hidden_concat = True)
+
+    return model(input_str, num_sentences = num_sentences)
 
 def summarize(args):
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     logger.info("Running on device: {}".format(device))
     
+    if args.extractive:
+        return extractive_summarizer(args.model_type, args.input_str)
+            
     for model, dic in MODEL_TYPES.items():
         if re.match(model, args.model_type):
             func = dic["func"]
@@ -106,11 +132,23 @@ def get_parser():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
+        "--extractive",
+        action = "store_true",
+        default = False,
+        help = "Option to perform extractive summarization. Models available: [distil-bert, sentence-bert]",
+    )
+    parser.add_argument(
+        "--num_sentences",
+        type = int,
+        default = 5,
+        help = "Number of Sentences to output for Extractive Summarization result.",
+    )
+    parser.add_argument(
         "--model_type", 
         type = str, 
         default = "t5_base",
         help = "Model type to use for text summarization. Currently supports t5-small and roberta models \
-                    Options: t5_base, bart, t5_child, bart_cnn, bart_child",
+                    Options: t5_base, t5_large, bart, t5_child, bart_cnn, bart_child",
     )
     parser.add_argument(
         "--model_path",

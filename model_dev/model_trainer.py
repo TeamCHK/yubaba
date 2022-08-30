@@ -11,14 +11,14 @@ import logging
 import time
 
 logging.basicConfig(level = logging.INFO)
-logger = logging.getLogger("[Model Inference]")
+logger = logging.getLogger("[Model Training]")
 
 def get_t5_tokenizer(max_length):
     return T5Tokenizer.from_pretrained('t5-small', model_max_length = max_length)
 
 def get_bart_tokenizer(max_length):
     # TODO: implement BART tokenizer
-    return BartTokenizer.from_pretrained('bart', model_max_length = max_length)
+    return BartTokenizer.from_pretrained('facebook/bart-large-cnn', model_max_length = max_length)
 
 def wikihow_dataset(cfg: dict, tokenizer):
     dataset = load_dataset("wikihow", "all", data_dir = cfg["data_dir"])
