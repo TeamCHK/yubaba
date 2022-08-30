@@ -11,9 +11,10 @@ runtime = boto3.client('runtime.sagemaker')
 
 def handler(event, context):
     # Extract URL from the request
+    # Request example: {"headers": {}, "httpMethod": "POST", "body": "{\"url\":\"https://example.com\"}"}
     logging.info("Received event: " + json.dumps(event, indent=2))
     data = json.loads(json.dumps(event))
-    url = data["url"]
+    url = json.loads(data["body"])["url"]
     
     # Download article from the given URL
     logging.info(f"Downloading article from: {url}")
@@ -27,21 +28,22 @@ def handler(event, context):
     logging.debug(f"Article date: {article.publish_date}")
     logging.debug(f"Article authors: {article.authors}")
     
-    # Set up inference payload that contains article body
-    inference_payload = {
-        "inputs": [article.text]
-    }
-    
     # Send error response if the given URL does not contain a valid article
     # https://github.com/codelucas/newspaper/blob/master/newspaper/article.py#L322
     if not article.is_valid_body():
         return {
-            "statusCode": 400,
-            "body": [{
-                "url": url
-            }]
+            "statusCode": 202,
+            'headers': {'Content-Type': 'application/json'},
+            "body": json.dumps({
+                "message": "There are not enough texts on this page to generate summary!"
+            })
         }
     
+    # Set up inference payload that contains article body
+    inference_payload = {
+        "inputs": [article.text]
+    }
+
     # Invoke an inference endpoint
     # Response example: [{'summary_text': 'This is an example of article summary.'}]
     response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
@@ -59,5 +61,6 @@ def handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': endpoint_response,
+        'headers': {'Content-Type': 'application/json'},
+        'body': json.dumps(endpoint_response),
     }

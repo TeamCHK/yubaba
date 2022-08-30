@@ -1,24 +1,33 @@
 import wretch from 'wretch';
-import { MsgType } from './types';
+import { MLISRequest, MLISResponse } from './types';
 
-
-var textToSummarize: string | null;
+const apiRoot: string = "https://aacxuouv1m.execute-api.us-east-1.amazonaws.com/default";
+const summarizationEndpoint: string = "/summarize";
 
 try {
     chrome.runtime.onMessage.addListener(
-        function (request, _, sendResponse) {
-            if (request.type === MsgType.PageContent) {
-                textToSummarize = request.text;
-            }
-            else if (request.type === MsgType.PopUpInit) {
-                if (textToSummarize != null) {
-                    sendResponse({
-                        textToSummarize: textToSummarize,
-                        // TODO: read article title from contentScript.ts & replace placeholder title
-                        articleTitle: "'Article Title Placeholder'"
-                    });
-                }
-            }
+        function (
+            request: MLISRequest,
+            _,
+            sendResponse: (response: MLISResponse) => void
+        ) {
+            console.log("[Yubaba] Waiting for summarization process...")
+            wretch(apiRoot + summarizationEndpoint)
+                .options({ mode: "cors" })
+                .post({ url: request.url })
+                .error(500, error => {
+                    // TODO: Implement error page (https://github.com/TeamCHK/yubaba/issues/24)
+                })
+                .res(res => {
+                    res.json().then(body => {
+                        console.log(`[Yubaba] (${res.status}) Received response:`, body)
+                        sendResponse({
+                            ...body,
+                            status: res.status,
+                        })
+                    })
+                })
+            return true; // This allows message sender to wait for async sendResponse
         }
     );
 } catch (err) {

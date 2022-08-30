@@ -3,43 +3,46 @@ import {
     AppBar,
     Card,
     CardContent,
-    CardHeader,
     CircularProgress,
     CssBaseline,
-    Link,
     Toolbar,
     Typography
 } from '@mui/material';
+import Article from "./Article";
 import SettingsIcon from '@mui/icons-material/Settings';
-import wretch from 'wretch';
-import { PopupToBackgroundMsg, BackgroundToPopupMsg, MsgType, MLISResponse } from "../extension/types";
-
-// TODO: Issue #14: Change url and endpoint after MLIS is ready
-const apiRoot: string = "http://localhost:8000";
-const summarizationEndpoint: string = "/summary";
+import { MLISRequest, MLISResponse } from "../extension/types";
 
 function Popup() {
     const [isLoading, setIsLoading] = useState(true);
-    const [content, setContent] = useState('');
     const [articleTitle, setArticleTitle] = useState('');
+    const [articleSummary, setArticleSummary] = useState('');
+    const [articleAuthors, setArticleAuthors] = useState([]);
+    const [articleDate, setArticleDate] = useState(null);
 
     useEffect(() => {
-        const msg: PopupToBackgroundMsg = {
-            type: MsgType.PopUpInit
-        };
-        chrome.runtime.sendMessage(msg, (response: BackgroundToPopupMsg) => {
-            if (response && response.textToSummarize) {
-                wretch(apiRoot + summarizationEndpoint)
-                    .options({ mode: "cors" })
-                    .post({ text: response.textToSummarize })
-                    .json((mlisResponse: MLISResponse) => {
-                        setArticleTitle(response.articleTitle);
-                        setContent(mlisResponse.text);
+        chrome.windows.getCurrent(w => {
+            chrome.tabs.query({ active: true, windowId: w.id }, ([tab]) => {
+                const request: MLISRequest = {
+                    url: tab.url,
+                };
+                chrome.runtime.sendMessage(request, (response: MLISResponse) => {
+                    if (response.status == 200 && response.articleSummary) {
+                        setArticleTitle(response.articleTitle!);
+                        setArticleSummary(response.articleSummary!);
+                        setArticleAuthors(response.articleAuthors!);
+                        setArticleDate(new Date(response.publishDate!));
                         setIsLoading(false);
-                    });
-            }
+                    }
+                    else if (response.status == 202) {
+                        setArticleTitle(response.message!);
+                        setIsLoading(false);
+                    }
+                });
+            });
         });
     }, []);
+
+    const articleProps = { articleTitle, articleSummary, articleAuthors, articleDate }
 
     return (
         <>
@@ -54,15 +57,7 @@ function Popup() {
             </AppBar>
             <Card sx={{ height: 400 }}>
                 <CardContent>
-                    <Typography sx={{ fontSize: 18 }}>
-                        Summary of {articleTitle}:
-                    </Typography>
-                </CardContent>
-                <CardContent>
-                    {(isLoading)
-                        ? <CircularProgress />
-                        : <Typography variant="body2"> {content} </Typography>
-                    }
+                    {isLoading ? <CircularProgress /> : <Article {...articleProps} />}
                 </CardContent>
             </Card>
         </>
