@@ -9,6 +9,10 @@ dist/
 
 # Python
 __pycache__/
+model_dev/__pycache__/
 
 # Mac OSX
 .DS_STORE
+
+# model files
+model_dev/models/*
