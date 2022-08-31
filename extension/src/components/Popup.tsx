@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
     AppBar,
+    Box,
     Card,
     CardContent,
     CircularProgress,
     CssBaseline,
+    Link,
     Toolbar,
     Typography
 } from '@mui/material';
@@ -60,6 +62,22 @@ function Popup() {
                     {isLoading ? <CircularProgress /> : <Article {...articleProps} />}
                 </CardContent>
             </Card>
+            <Box
+                display="flex"
+                justifyContent="flex-end"
+            >
+                <Link
+                    target="_blank"
+                    href="https://forms.gle/t1PeFbAnPqkqEFcp6"
+                    underline="none"
+                    variant="body2"
+                    sx={{
+                        mr: "1vw"
+                    }}
+                >
+                    Give us your feedback!
+                </Link>
+            </Box>
         </>
     );
 };
