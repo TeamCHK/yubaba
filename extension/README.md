@@ -43,7 +43,7 @@ Clone this repository and run the following command from the root directory
     </div>
     
 
-  - Navigate to `chrome-extension://{EXTENSION_ID}/popup.html`
+  - Navigate to `chrome-extension://{EXTENSION_ID}/index.html`
     
 
 ## Authors
