@@ -1,5 +1,5 @@
 {
-    "name": "temp-repo-name",
+    "name": "yubaba",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -9,15 +9,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/TeamCHK/temp-repo-name.git"
+        "url": "git+https://github.com/TeamCHK/yubaba.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/TeamCHK/temp-repo-name/issues"
+        "url": "https://github.com/TeamCHK/yubaba/issues"
     },
-    "homepage": "https://github.com/TeamCHK/temp-repo-name#readme",
+    "homepage": "https://github.com/TeamCHK/yubaba#readme",
     "dependencies": {
         "glob": "^8.0.3",
         "react": "^18.2.0",
