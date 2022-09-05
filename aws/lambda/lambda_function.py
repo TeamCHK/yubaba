@@ -29,8 +29,8 @@ def handler(event, context):
     logging.debug(f"Article authors: {article.authors}")
     
     # Send error response if the given URL does not contain a valid article
-    # https://github.com/codelucas/newspaper/blob/master/newspaper/article.py#L322
-    if not article.is_valid_body():
+    # https://github.com/codelucas/newspaper/blob/master/newspaper/urls.py#L102
+    if not article.is_valid_url():
         return {
             "statusCode": 202,
             'headers': {'Content-Type': 'application/json'},
