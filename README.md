@@ -2,6 +2,6 @@
 
 ## Overview
 
-## How to Install
+## Getting Started
 
 ## Improvements
