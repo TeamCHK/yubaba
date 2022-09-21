@@ -9,6 +9,8 @@ logging.root.setLevel(logging.DEBUG)
 ENDPOINT_NAME = os.environ['ENDPOINT_NAME']
 runtime = boto3.client('runtime.sagemaker')
 
+ARTICLE_LENGTH_MINIMUM = 100
+
 def handler(event, context):
     # Extract URL from the request
     # Request example: {"headers": {}, "httpMethod": "POST", "body": "{\"url\":\"https://example.com\"}"}
@@ -30,7 +32,7 @@ def handler(event, context):
     
     # Send error response if the given URL does not contain a valid article
     # https://github.com/codelucas/newspaper/blob/master/newspaper/urls.py#L102
-    if not article.is_valid_url():
+    if not article.is_valid_body() and not article.is_valid_url() and len(article.text) < ARTICLE_LENGTH_MINIMUM:
         return {
             "statusCode": 202,
             'headers': {'Content-Type': 'application/json'},
